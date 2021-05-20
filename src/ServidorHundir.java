@@ -12,7 +12,7 @@ public class ServidorHundir {
     public void juego() {
 
         try {
-            socket = new DatagramSocket();
+            socket = new DatagramSocket(5557);
             inetAddress = InetAddress.getByName("localhost");
 
             byte[] delocos = new byte[1024];
@@ -21,7 +21,7 @@ public class ServidorHundir {
             socket.receive(packet);
             //socket.send(new DatagramPacket("delocos".getBytes(), "delocos".getBytes().length, inetAddress, port));
 
-            System.out.println(packet.getData());
+            System.out.println(new String(packet.getData()));
 
         } catch (IOException e) {
         }
