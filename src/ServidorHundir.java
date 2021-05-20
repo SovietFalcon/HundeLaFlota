@@ -8,22 +8,33 @@ public class ServidorHundir {
     int port = 5557;
     DatagramSocket socket;
     InetAddress inetAddress;
+    boolean jugando = true;
 
     public void juego() {
 
-        try {
-            socket = new DatagramSocket(5557);
-            inetAddress = InetAddress.getByName("localhost");
+        while (jugando) {
+            try {
 
-            byte[] delocos = new byte[1024];
-            DatagramPacket packet = new DatagramPacket(delocos, delocos.length);
+                DatagramPacket packet;
 
-            socket.receive(packet);
-            //socket.send(new DatagramPacket("delocos".getBytes(), "delocos".getBytes().length, inetAddress, port));
+                socket = new DatagramSocket(5557);
+                inetAddress = InetAddress.getByName("localhost");
 
-            System.out.println(new String(packet.getData()));
+                byte[] msgRecibir = new byte[1024];
+                byte[] msgEnviar = new byte[1024];
 
-        } catch (IOException e) {
+                packet = new DatagramPacket(msgRecibir, msgRecibir.length);
+
+                socket.receive(packet);
+
+                System.out.println(new String(packet.getData()));
+
+                msgEnviar = "delocos".getBytes();
+
+                packet = new DatagramPacket(msgEnviar, msgEnviar.length, packet.getAddress(), packet.getPort());
+
+            } catch (IOException e) {
+            }
         }
 
 
