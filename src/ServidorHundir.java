@@ -1,8 +1,35 @@
+import java.io.IOException;
+import java.net.*;
+import java.nio.ByteBuffer;
+
 public class ServidorHundir {
 
     char[][] tablero = new char[10][10];
+    int port = 5557;
+    DatagramSocket socket;
+    InetAddress inetAddress;
 
     public void juego() {
+
+        try {
+            socket = new DatagramSocket();
+            inetAddress = InetAddress.getByName("localhost");
+
+            byte[] delocos = new byte[1024];
+            DatagramPacket packet = new DatagramPacket(delocos, delocos.length);
+
+            socket.receive(packet);
+            //socket.send(new DatagramPacket("delocos".getBytes(), "delocos".getBytes().length, inetAddress, port));
+
+            System.out.println(packet.getData());
+
+        } catch (IOException e) {
+        }
+
+
+
+
+
 
 
 
@@ -75,9 +102,14 @@ public class ServidorHundir {
 
         ServidorHundir servidorHundir = new ServidorHundir();
 
+        /*
         servidorHundir.nuevoTablero();
 
         servidorHundir.mostrarTablero();
+
+         */
+
+        servidorHundir.juego();
 
 
     }
