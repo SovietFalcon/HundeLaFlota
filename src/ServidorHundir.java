@@ -32,6 +32,7 @@ public class ServidorHundir {
                 msgEnviar = "delocos".getBytes();
 
                 packet = new DatagramPacket(msgEnviar, msgEnviar.length, packet.getAddress(), packet.getPort());
+                socket.send(packet);
 
             } catch (IOException e) {
             }

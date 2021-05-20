@@ -28,6 +28,8 @@ public class ClienteHundir {
         socket.send(packet);
         packet = new DatagramPacket(reciveData, 1024);
         socket.receive(packet);
+
+        System.out.println(new String(packet.getData()));
     }
 
     public static void main(String[] args) throws IOException {
