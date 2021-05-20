@@ -24,9 +24,10 @@ public class ClienteHundir {
 
         String s = "prueba";
         sendData = s.getBytes();
-
         DatagramPacket packet = new DatagramPacket(sendData, sendData.length, ip, port);
         socket.send(packet);
+        packet = new DatagramPacket(reciveData, 1024);
+        socket.receive(packet);
     }
 
     public static void main(String[] args) throws IOException {

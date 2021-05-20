@@ -10,7 +10,6 @@ public class ServidorHundir {
     InetAddress inetAddress;
 
     public void juego() {
-
         try {
             socket = new DatagramSocket(5557);
             inetAddress = InetAddress.getByName("localhost");
@@ -25,16 +24,6 @@ public class ServidorHundir {
 
         } catch (IOException e) {
         }
-
-
-
-
-
-
-
-
-
-
     }
 
     public void nuevoTablero() {
