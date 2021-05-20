@@ -8,7 +8,7 @@ public class ClienteHundir {
     int port;
     DatagramSocket socket;
     InetAddress ip;
-    Scanner sc;
+    Scanner sc = new Scanner(System.in);
 
     public void init () throws UnknownHostException, SocketException {
         System.out.println("Escribe la ip del servidor (Ej: 198.162.25.1)");
