@@ -141,6 +141,10 @@ public class ClienteHundir {
             } else if (receivedString.equals("noturno")) {
                 System.out.println("Espera tu turno!");
 
+            } else {
+
+                System.out.println(receivedString);
+
             }
 
 

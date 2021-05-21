@@ -139,6 +139,16 @@ public class ServidorHundir {
                         }
                     }
 
+                    if (!jugando) {
+                        String enviarMensaje = "Fin del juego! Jugador 1: " + puntosJ1 + " puntos ; Jugador 2: " + puntosJ2 + " puntos.";
+                        msgEnviar = new String().getBytes();
+                        packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+                        socket.send(packet);
+                        packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ2, portJ2);
+                        socket.send(packet);
+                        break;
+                    }
+
                     if (turno == 1) {
                         turno = 2;
                     } else if (turno == 2) {
