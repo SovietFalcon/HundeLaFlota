@@ -99,6 +99,7 @@ public class ClienteHundir {
             packet = new DatagramPacket(reciveData, reciveData.length);
             socket.receive(packet);
             receivedString = new String(packet.getData(), 0, packet.getLength());
+            System.out.println(receivedString);
 
             if (receivedString.equals("turno")) {
                 coordsCorrectas = false;

@@ -141,7 +141,7 @@ public class ServidorHundir {
 
                     if (!jugando) {
                         String enviarMensaje = "Fin del juego! Jugador 1: " + puntosJ1 + " puntos ; Jugador 2: " + puntosJ2 + " puntos.";
-                        msgEnviar = new String().getBytes();
+                        msgEnviar = new String(enviarMensaje).getBytes();
                         packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
                         socket.send(packet);
                         packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ2, portJ2);
@@ -165,6 +165,77 @@ public class ServidorHundir {
 
             } catch (IOException e) {
             }
+
+
+
+    }
+
+    public void juegoSingle() {
+
+        try {
+
+            DatagramPacket packet;
+
+            inetAddress = InetAddress.getByName(srvIp);
+
+            byte[] msgRecibir = new byte[1024];
+            byte[] msgEnviar = new byte[1024];
+            String stringRecibir;
+            String resultado;
+
+            msgEnviar = new String("start").getBytes();
+            packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+            socket.send(packet);
+            System.out.println("Se empieza el juego");
+
+            while (jugando) {
+                msgEnviar = new String("turno").getBytes();
+                packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+                socket.send(packet);
+
+                packet = new DatagramPacket(msgRecibir, msgRecibir.length);
+                socket.receive(packet);
+
+                stringRecibir = new String(packet.getData(), 0, packet.getLength());
+                resultado = comprobarCoords(stringRecibir);
+
+                msgEnviar = new String(resultado).getBytes();
+                packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+                socket.send(packet);
+
+                jugando = false;
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if (tablero[i][j] != '·') {
+                            jugando = true;
+                        }
+                    }
+                }
+
+                if (!jugando) {
+                    String enviarMensaje = "Fin del juego! Jugador 1: " + puntosJ1 + " puntos ; Jugador 2: " + puntosJ2 + " puntos.";
+                    msgEnviar = new String(enviarMensaje).getBytes();
+                    packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+                    socket.send(packet);
+                    break;
+                }
+
+                if (turno == 1) {
+                    turno = 2;
+                } else if (turno == 2) {
+                    turno = 1;
+                }
+
+
+
+
+
+
+            }
+
+
+        } catch (IOException e) {
+        }
 
 
 
@@ -238,9 +309,11 @@ public class ServidorHundir {
         //Tablero barcos PC
         //barco1-4cuadriculas
         tablero[0][0] = '0';
-        tablero[0][1] = '0';
-        tablero[0][2] = '0';
-        tablero[0][3] = '0';
+        //tablero[0][1] = '0';
+        //tablero[0][2] = '0';
+        //tablero[0][3] = '0';
+
+        /*
 
         //barco2-3cuadriculas-1
         tablero[0][9] = '1';
@@ -276,6 +349,8 @@ public class ServidorHundir {
         //barco4-1cuadricula-3
         tablero[5][4] = '9';
 
+         */
+
     }
 
     public void mostrarTablero() { //WIP
@@ -298,7 +373,7 @@ public class ServidorHundir {
         servidorHundir.lobby();
 
         if (servidorHundir.jugadores == 1) {
-
+            servidorHundir.juegoSingle();
         } else if (servidorHundir.jugadores == 2) {
             servidorHundir.juegoCoop();
         }
