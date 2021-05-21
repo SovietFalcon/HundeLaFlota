@@ -309,11 +309,9 @@ public class ServidorHundir {
         //Tablero barcos PC
         //barco1-4cuadriculas
         tablero[0][0] = '0';
-        //tablero[0][1] = '0';
-        //tablero[0][2] = '0';
-        //tablero[0][3] = '0';
-
-        /*
+        tablero[0][1] = '0';
+        tablero[0][2] = '0';
+        tablero[0][3] = '0';
 
         //barco2-3cuadriculas-1
         tablero[0][9] = '1';
@@ -348,8 +346,6 @@ public class ServidorHundir {
 
         //barco4-1cuadricula-3
         tablero[5][4] = '9';
-
-         */
 
     }
 
