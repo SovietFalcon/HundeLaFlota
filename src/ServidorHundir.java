@@ -130,6 +130,21 @@ public class ServidorHundir {
                     }
                     socket.send(packet);
 
+                    jugando = false;
+                    for (int i = 0; i < 10; i++) {
+                        for (int j = 0; j < 10; j++) {
+                            if (tablero[i][j] != '·') {
+                                jugando = true;
+                            }
+                        }
+                    }
+
+                    if (turno == 1) {
+                        turno = 2;
+                    } else if (turno == 2) {
+                        turno = 1;
+                    }
+
 
 
 
@@ -155,18 +170,18 @@ public class ServidorHundir {
         if (tablero[n1][n2] == '·') {
             return "0";
         } else {
-            barco = tablero[n1][n2];
+            barco = Character.getNumericValue(tablero[n1][n2]);
+            tablero[n1][n2] = '·';
 
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    if (tablero[i][j] == barco) {
+                    if (Character.getNumericValue(tablero[i][j]) == barco) {
                         destruido = false;
                     }
                 }
             }
 
             if (destruido) {
-                tablero[n1][n2] = '·';
                 if (turno == 1) {
                     puntosJ1 += 5;
                 } else {
@@ -174,7 +189,6 @@ public class ServidorHundir {
                 }
                 return "2"; //HUNDIDO
             } else {
-                tablero[n1][n2] = '·';
                 if (turno == 1) {
                     puntosJ1++;
                 } else {
