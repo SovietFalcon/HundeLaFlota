@@ -86,19 +86,6 @@ public class ServidorHundir {
                 byte[] msgRecibir = new byte[1024];
                 byte[] msgEnviar = new byte[1024];
 
-                packet = new DatagramPacket(msgRecibir, msgRecibir.length);
-
-                socket.receive(packet);
-
-
-
-
-                System.out.println(new String(packet.getData(),0, packet.getLength()));
-
-                msgEnviar = "delocos".getBytes();
-
-                packet = new DatagramPacket(msgEnviar, msgEnviar.length, packet.getAddress(), packet.getPort());
-                socket.send(packet);
 
             } catch (IOException e) {
             }
