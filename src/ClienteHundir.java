@@ -10,6 +10,25 @@ public class ClienteHundir {
     InetAddress ip;
     Scanner sc = new Scanner(System.in);
 
+    public void crearTablero() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                tablero[i][j] = '·';
+            }
+        }
+    }
+
+    public void mostrarTablero() { //WIP
+        System.out.println("    A   B   C   D   E   F   G   H   I   J");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + "   ");
+            for (int j = 0; j < 10; j++) {
+                System.out.print(tablero[i][j] + "   ");
+            }
+            System.out.print("\n");
+        }
+    }
+
     public void init () throws UnknownHostException, SocketException {
         System.out.println("Escribe la ip del servidor (Ej: 198.162.25.1)");
         ip = InetAddress.getByName(sc.next());
@@ -40,6 +59,7 @@ public class ClienteHundir {
 
         receivedString = new String(packet.getData(),0,packet.getLength());
         if (receivedString.equals("1")) {
+            System.out.println("Bienvenido a Hundir la Flota - Cooperativo: Jugador 1");
             System.out.println("¿Quieres empezar la partida o esperar a que entre otro jugador?\n1. Empezar la partida\n2. Esperar a otro jugador");
             auxiliar = scanner.next();
             if (auxiliar.equals("1")) {
@@ -56,13 +76,19 @@ public class ClienteHundir {
                 socket.send(packet);
             }
         } else if (receivedString.equals("2")) {
-            System.out.println("no eres jugador 1");
+            System.out.println("Bienvenido a Hundir la Flota - Cooperativo: Jugador 2");
         }
 
 
+        //INICIO PARTIDA
 
+        packet = new DatagramPacket(reciveData, reciveData.length);
+        socket.receive(packet);
+        receivedString = new String(packet.getData(), 0, packet.getLength());
 
-
+        if (receivedString.equals("start")) {
+            System.out.println("Empieza la partida");
+        }
 
         //JUEGO
 
@@ -71,6 +97,7 @@ public class ClienteHundir {
     public static void main(String[] args) throws IOException {
         ClienteHundir c = new ClienteHundir();
 
+        c.crearTablero();
         c.init();
         c.runClient();
     }

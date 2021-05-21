@@ -19,6 +19,7 @@ public class ServidorHundir {
     int portJ1;
     InetAddress inetAddressJ2;
     int portJ2;
+    int turno = 1;
 
     public void lobby() {
         try {
@@ -48,11 +49,11 @@ public class ServidorHundir {
 
                     auxiliar = new String(packet.getData(), 0, packet.getLength());
                     if (auxiliar.equals("empezar")){
-                        System.out.println("Se empieza"); //WIP
+                        System.out.println("Se empieza el juego con 1 persona"); //WIP
                         break;
 
                     } else if (auxiliar.equals("esperar")) {
-                        System.out.println("Se espera"); //WIP
+                        System.out.println("Se espera a otro jugador"); //WIP
 
                     }
                     //System.out.println(new String(packet.getData(),0, packet.getLength()));
@@ -75,21 +76,34 @@ public class ServidorHundir {
 
     public void juego() {
 
-        while (jugando) {
+        System.out.println("lololol");
+
             try {
 
                 DatagramPacket packet;
 
-                socket = new DatagramSocket(5557);
                 inetAddress = InetAddress.getByName(srvIp);
 
                 byte[] msgRecibir = new byte[1024];
                 byte[] msgEnviar = new byte[1024];
 
+                msgEnviar = new String("start").getBytes();
+                packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ1, portJ1);
+                socket.send(packet);
+                packet = new DatagramPacket(msgEnviar, msgEnviar.length, inetAddressJ2, portJ2);
+                socket.send(packet);
+                System.out.println("Se empieza el juego");
+
+                while (jugando) {
+
+
+
+
+                }
+
 
             } catch (IOException e) {
             }
-        }
 
 
 
@@ -166,7 +180,7 @@ public class ServidorHundir {
         for (int i = 0; i < 10; i++) {
             System.out.print(i + "   ");
             for (int j = 0; j < 10; j++) {
-                System.out.print(tableroJ1[i][j] + "   ");
+                System.out.print(tablero[i][j] + "   ");
             }
             System.out.print("\n");
         }
@@ -180,7 +194,7 @@ public class ServidorHundir {
 
         servidorHundir.lobby();
 
-        //servidorHundir.juego();
+        servidorHundir.juego();
 
     }
 
