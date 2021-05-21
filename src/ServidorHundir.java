@@ -166,6 +166,7 @@ public class ServidorHundir {
             }
 
             if (destruido) {
+                tablero[n1][n2] = '·';
                 if (turno == 1) {
                     puntosJ1 += 5;
                 } else {
@@ -173,6 +174,7 @@ public class ServidorHundir {
                 }
                 return "2"; //HUNDIDO
             } else {
+                tablero[n1][n2] = '·';
                 if (turno == 1) {
                     puntosJ1++;
                 } else {
