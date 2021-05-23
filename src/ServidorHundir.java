@@ -6,8 +6,8 @@ import java.nio.charset.StandardCharsets;
 public class ServidorHundir {
 
     char[][] tablero = new char[10][10];
-    char[][] tableroJ1 = new char[10][10];
-    char[][] tableroJ2 = new char[10][10];
+    //char[][] tableroJ1 = new char[10][10];
+    //char[][] tableroJ2 = new char[10][10];
 
     //Info NET
     int port = 5557;
@@ -290,6 +290,7 @@ public class ServidorHundir {
             }
         }
 
+        /*
         //Tablero-Jugador1
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -303,6 +304,7 @@ public class ServidorHundir {
                 tableroJ2[i][j] = '·';
             }
         }
+         */
 
 
 
